@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Welcome</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f7f9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+    text-align: center;
+    width: 320px;
+  }
+  button {
+    padding: 12px 30px;
+    background: #dc3545;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  button:hover { background: #a71d2a; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, <span id="usernameDisplay"></span>!</h1>
+    <p>You are now signed in. 🎉</p>
+    <button id="logoutBtn">Log Out</button>
+  </div>
+
+  <script>
+    const usernameDisplay = document.getElementById("usernameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+      window.location.href = "signin.html";
+    } else {
+      usernameDisplay.textContent = loggedInUser;
+    }
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "signin.html";
+    });
+  </script>
+</body>
+</html>

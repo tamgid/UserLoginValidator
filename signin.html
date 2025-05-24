@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sign In</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f7f9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+    text-align: center;
+    width: 320px;
+  }
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 12px 0;
+    font-size: 16px;
+  }
+  .btn {
+    padding: 12px 30px;
+    background: #007BFF;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    width: 95%;
+  }
+  .btn:hover { background: #0056b3; }
+  #message {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  a {
+    display: block;
+    margin-top: 20px;
+    color: #28a745;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Log In</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button class="btn" id="signinBtn">Sign In</button>
+    <p id="message"></p>
+    <a href="signup.html">Don't have an account? Sign Up</a>
+  </div>
+
+  <script>
+    const signinBtn = document.getElementById("signinBtn");
+    const message = document.getElementById("message");
+
+    signinBtn.addEventListener("click", () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        message.style.color = "red";
+        message.textContent = "Please enter username and password.";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (user) {
+        localStorage.setItem("loggedInUser", username);
+        window.location.href = "welcome.html";
+      } else {
+        message.style.color = "red";
+        message.textContent = "User not found or wrong password. Please sign up first.";
+      }
+    });
+  </script>
+</body>
+</html>
